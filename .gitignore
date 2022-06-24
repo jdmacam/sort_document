@@ -1,0 +1,8 @@
+# downloaded .m3u8 files
+*.m3u8
+
+# compiled executable
+sort
+
+.vscode
+.gitignore
