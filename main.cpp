@@ -24,9 +24,15 @@ using std::sort;
 
 class Tag{
     public:
+        // the type of tag
         string tag_type;
+        // the line of this tag entry
         string line_entry;
+        // map of the different fields for a tag. key: field name, value: value of that field
+        // utilizes std::any to allow for the map to contain a mix of different value data types
         unordered_map<string, any> field_list;
+        
+        // returns true if a given field exists in this tag, false if not
         bool has_field(string field){
             if(field_list.count(field)){
                 return 1;
@@ -105,7 +111,7 @@ bool download_file(string target_url, string filename){
 } //download_file()
 
 /*
-    parse_document() - parses the document, creates a corresponding Tag object for each line, and adds it to the list of parsed tags via pass by reference
+    parse_document() - Parses the document, creates a corresponding Tag object for each line, and adds it to the list of parsed tags via pass by reference
 */
 void parse_document(vector<Tag*> &parsed_tags, string filename){
     ifstream input_file(filename);
@@ -219,11 +225,15 @@ bool compare_groupid(Tag* a, Tag* b){
     return (any_cast<string>(a->field_list["GROUP-ID"]) < any_cast<string>(b->field_list["GROUP-ID"]) );
 }//compare_codecs()
 
+/*
+    sort_by() - Sorts the lists of tags by a desired field and print it out.
+*/
 void sort_by( unordered_map< string, vector<Tag*> > &tags, string field){
     cout << "*** Sorting by: " << field << " ***" << endl;
     // sort tags with the field we want to sort and print them first
     for(auto& m : tags){
         if(m.second[0]->has_field(field)){
+            // determine which comparison function to use based on desired field to sort by
             if(field == "BANDWIDTH"){
                 sort(m.second.begin(), m.second.end(), compare_bandwidth);
             }
