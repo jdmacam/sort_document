@@ -31,7 +31,6 @@ class Tag{
         // map of the different fields for a tag. key: field name, value: value of that field
         // utilizes std::any to allow for the map to contain a mix of different value data types
         unordered_map<string, any> field_list;
-        
         // returns true if a given field exists in this tag, false if not
         bool has_field(string field){
             if(field_list.count(field)){
@@ -289,6 +288,13 @@ int main(){
     for(auto& i: sort_choices){
         if(i.second == 1){
             sort_by(tags, i.first);
+        }
+    }
+
+    // free memory of all the tag objects created, removing memory leaks
+    for(auto& p : tags){
+        for(auto& i : p.second){
+            delete i;
         }
     }
 
