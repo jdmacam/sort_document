@@ -1,3 +1,5 @@
 ## How to compile and run
-1. Enter **make** in terminal to compile the program via the Makefile.
-2. Run by simply entering **./sort** in terminal
+1. Run the **make** command to compile the program via the Makefile.
+``` $ make ```
+2. Run the program by running the **./sort** executable.
+``` $ ./sort ```
